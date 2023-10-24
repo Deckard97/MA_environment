@@ -10,6 +10,7 @@ import io.spring.infrastructure.repository.MyBatisArticleRepository;
 import io.spring.infrastructure.repository.MyBatisUserRepository;
 import java.util.Arrays;
 import java.util.Optional;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -26,9 +27,14 @@ public class MyBatisArticleRepositoryTest extends DbTestBase {
 
   @BeforeEach
   public void setUp() {
-    User user = new User("aisensiy@gmail.com", "aisensiy", "123", "bio", "default");
+    User user = new User("aisensiy4@gmail.com", "aisensiy4", "123", "bio", "default");
     userRepository.save(user);
     article = new Article("test", "desc", "body", Arrays.asList("java", "spring"), user.getId());
+  }
+
+  @AfterEach
+  public void tearDown() {
+    articleRepository.remove(article);
   }
 
   @Test

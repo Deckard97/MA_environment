@@ -41,7 +41,7 @@ public class CommentQueryServiceTest extends DbTestBase {
 
   @BeforeEach
   public void setUp() {
-    user = new User("aisensiy@test.com", "aisensiy", "123", "", "");
+    user = new User("aisensiy@test.com", "aisensiy2", "123", "", "");
     userRepository.save(user);
   }
 

@@ -48,7 +48,7 @@ public class ArticleQueryServiceTest extends DbTestBase {
 
   @BeforeEach
   public void setUp() {
-    user = new User("aisensiy@gmail.com", "aisensiy", "123", "", "");
+    user = new User("aisensiy@gmail.com", "aisensiy1", "123", "", "");
     userRepository.save(user);
     article =
         new Article(

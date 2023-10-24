@@ -25,7 +25,7 @@ public class ArticleRepositoryTransactionTest {
 
   @Test
   public void transactional_test() {
-    User user = new User("aisensiy@gmail.com", "aisensiy", "123", "bio", "default");
+    User user = new User("aisensiy3@gmail.com", "aisensiy3", "123", "bio", "default");
     userRepository.save(user);
     Article article =
         new Article("test", "desc", "body", Arrays.asList("java", "spring"), user.getId());
@@ -37,5 +37,6 @@ public class ArticleRepositoryTransactionTest {
     } catch (Exception e) {
       Assertions.assertNull(articleMapper.findTag("other"));
     }
+    articleRepository.remove(article);
   }
 }
