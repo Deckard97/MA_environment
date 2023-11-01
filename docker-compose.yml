@@ -17,11 +17,8 @@ services:
       interval: 2s
       timeout: 20s
       retries: 10
-    deploy:
-      resources:
-        limits:
-          cpus: '2'
-          memory: 2G
+    cpus: '2'
+    mem_limit: 2G
 
   httpd:
     image: httpd
@@ -32,11 +29,8 @@ services:
       - testenv-network
     volumes:
       - ./additional/httpd.conf:/usr/local/apache2/conf/httpd.conf
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: 512M
+    cpus: '1'
+    mem_limit: 512M
 
   application1:
     container_name: app1
@@ -48,11 +42,8 @@ services:
     depends_on:
       - db
       - httpd
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: 1G
+    cpus: '1'
+    mem_limit: 1G
 
   application2:
     container_name: app2
@@ -64,11 +55,8 @@ services:
     depends_on:
       - db
       - httpd
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: 1G
+    cpus: '1'
+    mem_limit: 1G
 
   influxdb:
     image: influxdb
@@ -86,11 +74,8 @@ services:
       - "8086:8086"
     networks:
       - testenv-network
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: 1G
+    cpus: '1'
+    mem_limit: 1G
 
   telegraf:
     image: telegraf:latest
@@ -102,11 +87,8 @@ services:
       - testenv-network
     depends_on:
       - influxdb
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 256M
+    cpus: '0.5'
+    mem_limit: 256M
 
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.10.2
@@ -121,11 +103,8 @@ services:
       - testenv-network
     volumes:
       - esdata:/usr/share/elasticsearch/data
-    deploy:
-      resources:
-        limits:
-          cpus: '2'
-          memory: 1.5G
+    cpus: '2'
+    mem_limit: 1.5G
 
   filebeat:
     image: docker.elastic.co/beats/filebeat:8.10.2
@@ -139,11 +118,8 @@ services:
       - testenv-network
     depends_on:
       - elasticsearch
-    deploy:
-      resources:
-        limits:
-          cpus: '0.5'
-          memory: 256M
+    cpus: '0.5'
+    mem_limit: 256M
 
   kibana:
     image: docker.elastic.co/kibana/kibana:8.10.2
@@ -158,11 +134,8 @@ services:
       - testenv-network
     depends_on:
       - elasticsearch
-    deploy:
-      resources:
-        limits:
-          cpus: '1'
-          memory: 1G
+    cpus: '1'
+    mem_limit: 1G
 
 networks:
   testenv-network:
