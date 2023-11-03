@@ -2,6 +2,8 @@ filebeat.autodiscover:
   providers:
     - type: docker
       hints.enabled: true
+      include_labels:
+        - "co.elastic.logs/module"
 
 processors:
   - add_docker_metadata: ~
