@@ -1,49 +1,10 @@
 filebeat.autodiscover:
   providers:
     - type: docker
-      templates:
-        # Apache httpd configuration
-        - condition:
-            contains:
-              docker.container.image: httpd
-          config:
-            - module: apache
-              log:
-                input:
-                  type: container
-                  paths:
-                    - "/var/lib/docker/containers/${data.docker.container.id}/*.log"
-
-        # Spring Boot Java backend configuration
-        - condition:
-            contains:
-              docker.container.image: adoptopenjdk
-          config:
-            - module: log
-              input:
-                type: container
-                paths:
-                  - "/var/lib/docker/containers/${data.docker.container.id}/*.log"
-              multiline.pattern: '^[[:space:]]+(at|...)|^Caused by:'
-              multiline.negate: false
-              multiline.match: after
-
-        # MySQL configuration
-        - condition:
-            contains:
-              docker.container.image: mysql
-          config:
-            - module: mysql
-              error:
-                input:
-                  type: container
-                  paths:
-                    - "/var/lib/docker/containers/${data.docker.container.id}/*.log"
-
-output.elasticsearch:
-  hosts: ["elasticsearch:9200"]
+      hints.enabled: true
 
 processors:
   - add_docker_metadata: ~
 
-logging.level: info
+output.elasticsearch:
+  hosts: ["elasticsearch:9200"]
