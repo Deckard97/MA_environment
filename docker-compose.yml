@@ -19,6 +19,8 @@ services:
       retries: 10
     cpus: '2'
     mem_limit: 2G
+    labels:
+      - co.elastic.logs/enable=true
 
   httpd:
     image: httpd
@@ -31,6 +33,8 @@ services:
       - ./additional/httpd.conf:/usr/local/apache2/conf/httpd.conf
     cpus: '1'
     mem_limit: 512M
+    labels:
+      - co.elastic.logs/enable=true
 
   application1:
     container_name: app1
@@ -44,6 +48,8 @@ services:
       - httpd
     cpus: '1'
     mem_limit: 1G
+    labels:
+      - co.elastic.logs/enable=true
 
   application2:
     container_name: app2
@@ -57,6 +63,8 @@ services:
       - httpd
     cpus: '1'
     mem_limit: 1G
+    labels:
+      - co.elastic.logs/enable=true
 
   influxdb:
     image: influxdb

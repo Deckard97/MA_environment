@@ -1,8 +1,9 @@
 filebeat.inputs:
-- type: log
-  enabled: true
+- type: container
   paths:
-    - /var/lib/docker/containers/*/*.log
+    - '/var/lib/docker/containers/*/*.log'
+  containers.labels:
+    co.elastic.logs/enable: "true"
 
 output.elasticsearch:
   hosts: ["elasticsearch:9200"]
