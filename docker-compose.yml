@@ -20,7 +20,6 @@ services:
     cpus: '2'
     mem_limit: 2G
     labels:
-      service: db
       co.elastic.logs/module: "mysql"
       co.elastic.logs/fileset.stdout: "slowlog"
       co.elastic.logs/fileset.stderr: "error"
@@ -38,7 +37,6 @@ services:
     cpus: '1'
     mem_limit: 512M
     labels:
-      service: httpd
       co.elastic.logs/module: "apache"
       co.elastic.logs/fileset.stdout: "access"
       co.elastic.logs/fileset.stderr: "error"
@@ -62,7 +60,6 @@ services:
     cpus: '1'
     mem_limit: 1G
     labels:
-      service: app1
       co.elastic.logs/module: "java"
       co.elastic.logs/fileset.stdout: "gc"
       co.elastic.logs/fileset.stderr: "error"
@@ -86,7 +83,6 @@ services:
     cpus: '1'
     mem_limit: 1G
     labels:
-      service: app2
       co.elastic.logs/module: "java"
       co.elastic.logs/fileset.stdout: "gc"
       co.elastic.logs/fileset.stderr: "error"
