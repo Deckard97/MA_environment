@@ -120,13 +120,13 @@ services:
     networks:
       - testenv-network
     depends_on:
-      app1:
+      application1:
         condition: service_healthy
-      app2:
+      application2:
         condition: service_healthy
       httpd:
         condition: service_healthy
-      mysql:
+      db:
         condition: service_healthy
     cpus: '0.5'
     mem_limit: 256M
