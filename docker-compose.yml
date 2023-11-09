@@ -32,11 +32,6 @@ services:
       - '80:80'
     networks:
       - testenv-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:80/server-status?auto"]
-      interval: 2s
-      timeout: 20s
-      retries: 10
     volumes:
       - ./additional/httpd.conf:/usr/local/apache2/conf/httpd.conf
     cpus: '1'
@@ -123,8 +118,6 @@ services:
       application1:
         condition: service_healthy
       application2:
-        condition: service_healthy
-      httpd:
         condition: service_healthy
       db:
         condition: service_healthy
