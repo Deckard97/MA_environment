@@ -76,6 +76,7 @@ def create_articles():
             else:
                 max_num_tags = random.randint(1, 10)
             tags = random.sample(words, max_num_tags)
+            tags = [s.replace('.', '') for s in tags]
 
             # Create an article
             article_payload = {

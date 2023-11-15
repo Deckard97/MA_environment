@@ -2,7 +2,7 @@
 /build/
 !gradle/wrapper/gradle-wrapper.jar
 additional/articles.csv
-additional/comments.csv
+additional/sentence.csv
 
 ### STS ###
 .apt_generated
