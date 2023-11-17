@@ -17,8 +17,8 @@ services:
       interval: 2s
       timeout: 20s
       retries: 10
-    cpus: '2'
-    mem_limit: 2G
+    cpus: '1'
+    mem_limit: 1G
     labels:
       co.elastic.logs/module: "mysql"
       co.elastic.logs/fileset.stdout: "slowlog"
@@ -35,7 +35,7 @@ services:
     volumes:
       - ./additional/httpd.conf:/usr/local/apache2/conf/httpd.conf
     cpus: '1'
-    mem_limit: 512M
+    mem_limit: 256M
     labels:
       co.elastic.logs/module: "apache"
       co.elastic.logs/fileset.stdout: "access"
@@ -58,34 +58,34 @@ services:
       - db
       - httpd
     cpus: '1'
-    mem_limit: 1G
+    mem_limit: 256M
     labels:
       co.elastic.logs/module: "java"
       co.elastic.logs/fileset.stdout: "gc"
       co.elastic.logs/fileset.stderr: "error"
 
 
-  application2:
-    container_name: app2
-    build:
-      context: ./
-      dockerfile: Dockerfile
-    networks:
-      - testenv-network
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
-      interval: 10s
-      timeout: 20s
-      retries: 5
-    depends_on:
-      - db
-      - httpd
-    cpus: '1'
-    mem_limit: 1G
-    labels:
-      co.elastic.logs/module: "java"
-      co.elastic.logs/fileset.stdout: "gc"
-      co.elastic.logs/fileset.stderr: "error"
+  # application2:
+  #   container_name: app2
+  #   build:
+  #     context: ./
+  #     dockerfile: Dockerfile
+  #   networks:
+  #     - testenv-network
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+  #     interval: 10s
+  #     timeout: 20s
+  #     retries: 5
+  #   depends_on:
+  #     - db
+  #     - httpd
+  #   cpus: '1'
+  #   mem_limit: 1G
+  #   labels:
+  #     co.elastic.logs/module: "java"
+  #     co.elastic.logs/fileset.stdout: "gc"
+  #     co.elastic.logs/fileset.stderr: "error"
 
   influxdb:
     image: influxdb
@@ -117,8 +117,8 @@ services:
     depends_on:
       application1:
         condition: service_healthy
-      application2:
-        condition: service_healthy
+      # application2:
+      #   condition: service_healthy
       db:
         condition: service_healthy
     cpus: '0.5'
