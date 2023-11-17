@@ -58,7 +58,7 @@ services:
       - db
       - httpd
     cpus: '1'
-    mem_limit: 256M
+    mem_limit: 512M
     labels:
       co.elastic.logs/module: "java"
       co.elastic.logs/fileset.stdout: "gc"
