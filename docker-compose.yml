@@ -127,6 +127,7 @@ services:
   host-telegraf:
     image: telegraf:latest
     container_name: host-telegraf
+    privileged: true
     volumes:
       - ./additional/host-telegraf.conf:/etc/telegraf/telegraf.conf:ro
     network_mode: host 
