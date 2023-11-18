@@ -124,6 +124,15 @@ services:
     cpus: '0.5'
     mem_limit: 256M
 
+  host-telegraf:
+    image: telegraf:latest
+    container_name: host-telegraf
+    volumes:
+      - ./additional/host-telegraf.conf:/etc/telegraf/telegraf.conf:ro
+    network_mode: host 
+    cpus: '0.5'
+    mem_limit: 256M
+
   elasticsearch:
     image: docker.elastic.co/elasticsearch/elasticsearch:8.10.2
     container_name: elasticsearch
