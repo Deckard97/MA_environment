@@ -13,7 +13,7 @@ services:
     networks:
       - testenv-network
     volumes:
-      - logs:/mnt/logs
+      - db-logs:/mnt/logs
     healthcheck:
       test: "/usr/bin/mysql --user=root --password=root --execute \"SHOW DATABASES;\""
       interval: 2s
@@ -36,7 +36,7 @@ services:
       - testenv-network
     volumes:
       - ./additional/httpd.conf:/usr/local/apache2/conf/httpd.conf
-      - logs:/mnt/logs
+      - httpd-logs:/mnt/logs
     cpus: '1'
     mem_limit: 256M
     labels:
@@ -51,11 +51,11 @@ services:
       context: ./
       dockerfile: Dockerfile
     environment:
-      - LOG_PATH=/mnt/logs/app1
+      - LOG_FILE=app1.log
     networks:
       - testenv-network
     volumes:
-      - logs:/mnt/logs
+      - app-logs:/mnt/logs
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
       interval: 10s
@@ -78,7 +78,7 @@ services:
   #     context: ./
   #     dockerfile: Dockerfile
   #   environment:
-  #     - LOG_PATH=/mnt/logs/app2
+  #     - LOG_FILE=app2.log
   #   networks:
   #     - testenv-network
   #   volumes:
@@ -123,7 +123,9 @@ services:
     volumes:
       - ./additional/telegraf.conf:/etc/telegraf/telegraf.conf:ro
       - /var/run/docker.sock:/var/run/docker.sock
-      - logs:/mnt/logs
+      - httpd-logs:/mnt/httpd-logs
+      - app-logs:/mnt/app-logs
+      - db-logs:/mnt/db-logs
     networks:
       - testenv-network
     depends_on:
@@ -200,7 +202,11 @@ networks:
     driver: bridge
 
 volumes:
-  logs:
+  httpd-logs:
+    driver: local
+  app-logs:
+    driver: local
+  db-logs:
     driver: local
   esdata:
     driver: local
