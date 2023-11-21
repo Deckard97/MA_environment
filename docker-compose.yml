@@ -12,6 +12,8 @@ services:
       - '3306:3306'
     networks:
       - testenv-network
+    volumes:
+      - logs:/mnt/logs
     healthcheck:
       test: "/usr/bin/mysql --user=root --password=root --execute \"SHOW DATABASES;\""
       interval: 2s
@@ -34,6 +36,7 @@ services:
       - testenv-network
     volumes:
       - ./additional/httpd.conf:/usr/local/apache2/conf/httpd.conf
+      - logs:/mnt/logs
     cpus: '1'
     mem_limit: 256M
     labels:
@@ -47,8 +50,12 @@ services:
     build:
       context: ./
       dockerfile: Dockerfile
+    environment:
+      - LOG_PATH=/mnt/logs/app1/spring_boot.log
     networks:
       - testenv-network
+    volumes:
+      - logs:/mnt/logs
     healthcheck:
       test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
       interval: 10s
@@ -70,8 +77,12 @@ services:
   #   build:
   #     context: ./
   #     dockerfile: Dockerfile
+  #   environment:
+  #     - LOG_PATH=/mnt/logs/app2/spring_boot.log
   #   networks:
   #     - testenv-network
+  #   volumes:
+  #     - logs:/mnt/logs
   #   healthcheck:
   #     test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
   #     interval: 10s
@@ -97,8 +108,8 @@ services:
       DOCKER_INFLUXDB_INIT_ORG: 'testenv'
       DOCKER_INFLUXDB_INIT_BUCKET: 'metricdb'
       DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: 3gH3gJHl6d2QhwkRpPslL2g8UHt7H3kNj3KlN2jN2K
-    volumes:
-      - influxdb-data:/var/lib/influxdb
+    # volumes:
+    #   - influxdb-data:/var/lib/influxdb2
     ports:
       - "8086:8086"
     networks:
@@ -112,6 +123,7 @@ services:
     volumes:
       - ./additional/telegraf.conf:/etc/telegraf/telegraf.conf:ro
       - /var/run/docker.sock:/var/run/docker.sock
+      - logs:/mnt/logs
     networks:
       - testenv-network
     depends_on:
@@ -145,8 +157,8 @@ services:
       - "9200:9200"
     networks:
       - testenv-network
-    volumes:
-      - esdata:/usr/share/elasticsearch/data
+    # volumes:
+    #   - esdata:/usr/share/elasticsearch/data
     cpus: '2'
     mem_limit: 1.5G
 
@@ -188,6 +200,8 @@ networks:
     driver: bridge
 
 volumes:
+  logs:
+    driver: local
   esdata:
     driver: local
   influxdb-data:
