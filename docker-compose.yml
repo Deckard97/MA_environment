@@ -14,6 +14,7 @@ services:
       - testenv-network
     volumes:
       - db-logs:/mnt/logs
+      - ./additional/my.cnf:/etc/mysql/my.cnf
     healthcheck:
       test: "/usr/bin/mysql --user=root --password=root --execute \"SHOW DATABASES;\""
       interval: 2s
@@ -21,11 +22,6 @@ services:
       retries: 10
     cpus: '1'
     mem_limit: 1G
-    labels:
-      co.elastic.logs/module: "mysql"
-      co.elastic.logs/fileset.stdout: "slowlog"
-      co.elastic.logs/fileset.stderr: "error"
-
 
   httpd:
     image: httpd
@@ -39,11 +35,6 @@ services:
       - httpd-logs:/mnt/logs
     cpus: '1'
     mem_limit: 256M
-    labels:
-      co.elastic.logs/module: "apache"
-      co.elastic.logs/fileset.stdout: "access"
-      co.elastic.logs/fileset.stderr: "error"
-
 
   application1:
     container_name: app1
@@ -66,11 +57,6 @@ services:
       - httpd
     cpus: '1'
     mem_limit: 512M
-    labels:
-      co.elastic.logs/module: "java"
-      co.elastic.logs/fileset.stdout: "gc"
-      co.elastic.logs/fileset.stderr: "error"
-
 
   # application2:
   #   container_name: app2
@@ -93,10 +79,6 @@ services:
   #     - httpd
   #   cpus: '1'
   #   mem_limit: 1G
-  #   labels:
-  #     co.elastic.logs/module: "java"
-  #     co.elastic.logs/fileset.stdout: "gc"
-  #     co.elastic.logs/fileset.stderr: "error"
 
   influxdb:
     image: influxdb
