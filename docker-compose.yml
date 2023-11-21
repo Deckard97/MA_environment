@@ -152,7 +152,7 @@ services:
     command: filebeat -e -strict.perms=false
     user: root
     volumes:
-      - ./additional/filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - ./additional/filebeat.yml:/usr/share/filebeat/filebeat.yml
     networks:
       - testenv-network
     depends_on:
