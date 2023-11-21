@@ -1,12 +1,54 @@
-filebeat.autodiscover:
-  providers:
-    - type: docker
-      hints.enabled: true
-      include_labels:
-        - "co.elastic.logs/module"
+filebeat.inputs:
+# HTTPD Access Logs
+- type: log
+  enabled: true
+  paths:
+    - /mnt/httpd-logs/access_log
+  fields:
+    log_type: httpd_access
 
-processors:
-  - add_docker_metadata: ~
+# HTTPD Error Logs
+- type: log
+  enabled: true
+  paths:
+    - /mnt/httpd-logs/error_log
+  fields:
+    log_type: httpd_error
+
+# Spring Boot Application Logs
+- type: log
+  enabled: true
+  paths:
+    - /mnt/app-logs/*.log
+  fields:
+    log_type: spring_boot
+
+# MySQL General Logs
+- type: log
+  enabled: true
+  paths:
+    - /mnt/db-logs/mysql-general.log
+  fields:
+    log_type: mysql_general
+
+# MySQL Error Logs
+- type: log
+  enabled: true
+  paths:
+    - /mnt/db-logs/mysql-error.log
+  fields:
+    log_type: mysql_error
+
+# MySQL Slow Query Logs
+- type: log
+  enabled: true
+  paths:
+    - /mnt/db-logs/mysql-slow.log
+  fields:
+    log_type: mysql_slow
 
 output.elasticsearch:
   hosts: ["elasticsearch:9200"]
+
+setup.kibana:
+  host: "kibana:5601"
