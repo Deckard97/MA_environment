@@ -51,7 +51,7 @@ services:
       context: ./
       dockerfile: Dockerfile
     environment:
-      - LOG_PATH=/mnt/logs/app1/spring_boot.log
+      - LOG_PATH=/mnt/logs/app1
     networks:
       - testenv-network
     volumes:
@@ -78,7 +78,7 @@ services:
   #     context: ./
   #     dockerfile: Dockerfile
   #   environment:
-  #     - LOG_PATH=/mnt/logs/app2/spring_boot.log
+  #     - LOG_PATH=/mnt/logs/app2
   #   networks:
   #     - testenv-network
   #   volumes:
