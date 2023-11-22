@@ -32,7 +32,7 @@ filebeat.inputs:
   multiline.match: after
   processors:
     - dissect:
-        tokenizer: "%{timestamp}  %{+timestamp}  %{log.level} %{process.id} --- [%{thread}] %{logger.name}     : %{message}"
+        tokenizer: "%{timestamp} %{+timestamp}  %{log.level} %{process.id} --- [%{thread}] %{logger.name} : %{message}"
     # - date:
     #     field: "timestamp"
     #     target_field: "@timestamp"
