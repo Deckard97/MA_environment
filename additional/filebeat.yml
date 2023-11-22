@@ -31,9 +31,9 @@ filebeat.inputs:
   multiline.negate: true
   multiline.match: after
   processors:
-    - grok:
-        patterns:
-          - '%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:loglevel} \[%{DATA:process_id}\] --- \[%{DATA:thread}\] %{DATA:logger}: %{GREEDYDATA:message}'
+    - dissect:
+        tokenizer: "%{timestamp} %{loglevel} [%{process_id}] --- [%{thread}] %{logger}: %{message}"
+
 
 
 output.elasticsearch:
