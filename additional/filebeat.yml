@@ -1,34 +1,34 @@
 filebeat.modules:
 - module: apache
-  # Access logs
-  access:
-    enabled: true
-    var.paths: ["/mnt/httpd-logs/access_log"]
+  # # Access logs
+  # access:
+  #   enabled: true
+  #   var.paths: ["/mnt/httpd-logs/access_log"]
 
   # Error logs
   error:
     enabled: true
     var.paths: ["mnt/httpd-logs/error_log"]
   
-- module: mysql
-  # Error logs
-  error:
-    enabled: true
-    var.paths: ["/mnt/db-logs/mysql-error.log"]
+# - module: mysql
+#   # Error logs
+#   error:
+#     enabled: true
+#     var.paths: ["/mnt/db-logs/mysql-error.log"]
 
-  # Slow logs
-  slowlog:
-    enabled: true
-    var.paths: ["/mnt/db-logs/mysql-slow.log"]
+#   # Slow logs
+#   slowlog:
+#     enabled: true
+#     var.paths: ["/mnt/db-logs/mysql-slow.log"]
 
-filebeat.inputs:
-# Spring Boot Application Logs
-- type: log
-  enabled: true
-  paths:
-    - /mnt/app-logs/*.log
-  fields:
-    log_type: spring_boot
+# filebeat.inputs:
+# # Spring Boot Application Logs
+# - type: log
+#   enabled: true
+#   paths:
+#     - /mnt/app-logs/*.log
+#   fields:
+#     log_type: spring_boot
 
 output.elasticsearch:
   hosts: ["elasticsearch:9200"]
