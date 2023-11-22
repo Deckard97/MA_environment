@@ -32,9 +32,7 @@ filebeat.inputs:
   multiline.match: after
   processors:
     - dissect:
-        tokenizer: "%{timestamp} %{loglevel} [%{process_id}] --- [%{thread}] %{logger}: %{message}"
-
-
+        tokenizer: "%{timestamp->} %{+timestamp} %{log.level} %{process.id} --- [%{thread}] %{logger.name}: %{message}"
 
 output.elasticsearch:
   hosts: ["elasticsearch:9200"]
