@@ -1,3 +1,29 @@
+# filebeat.config.modules:
+#   path: ${path.config}/modules.d/*.yml
+
+filebeat.modules:
+- module: apache
+  # Access logs
+  access:
+    enabled: true
+    var.paths: ["/mnt/httpd-logs/access_log"]
+
+  # Error logs
+  error:
+    enabled: true
+    var.paths: ["mnt/httpd-logs/error_log"]
+  
+- module: mysql
+  # Error logs
+  error:
+    enabled: true
+    var.paths: ["/mnt/db-logs/mysql-error.log"]
+
+  # Slow logs
+  slowlog:
+    enabled: true
+    var.paths: ["/mnt/db-logs/mysql-slow.log"]
+
 filebeat.inputs:
 # HTTPD Access Logs
 - type: log
@@ -51,6 +77,6 @@ output.elasticsearch:
   hosts: ["elasticsearch:9200"]
   username: "elastic"
   password: "elastic"
-  
+
 setup.kibana:
   host: "kibana:5601"
