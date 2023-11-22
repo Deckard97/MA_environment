@@ -49,13 +49,13 @@ filebeat.inputs:
   fields:
     log_type: spring_boot
 
-# MySQL General Logs
-- type: log
-  enabled: true
-  paths:
-    - /mnt/db-logs/mysql-general.log
-  fields:
-    log_type: mysql_general
+# # MySQL General Logs
+# - type: log
+#   enabled: true
+#   paths:
+#     - /mnt/db-logs/mysql-general.log
+#   fields:
+#     log_type: mysql_general
 
 # MySQL Error Logs
 - type: log
