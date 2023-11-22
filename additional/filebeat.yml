@@ -33,12 +33,12 @@ filebeat.inputs:
   processors:
     - dissect:
         tokenizer: "%{timestamp}  %{+timestamp}  %{log.level} %{process.id} --- [%{thread}] %{logger.name}     : %{message}"
-    - date:
-        field: "timestamp"
-        target_field: "@timestamp"
-        formats:
-          - "YYYY-MM-dd HH:mm:ss.SSS"
-        timezone: "UTC"
+    # - date:
+    #     field: "timestamp"
+    #     target_field: "@timestamp"
+    #     formats:
+    #       - "YYYY-MM-dd HH:mm:ss.SSS"
+    #     timezone: "UTC"
 
 output.elasticsearch:
   hosts: ["elasticsearch:9200"]
