@@ -30,11 +30,11 @@ filebeat.inputs:
   multiline.pattern: '^\d{4}-\d{2}-\d{2}'
   multiline.negate: true
   multiline.match: after
+  processors:
+    - grok:
+        patterns:
+          - '%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:loglevel} \[%{DATA:process_id}\] --- \[%{DATA:thread}\] %{DATA:logger}: %{GREEDYDATA:message}'
 
-processors:
-  - grok:
-      patterns:
-        - '%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:loglevel} \[%{DATA:process_id}\] --- \[%{DATA:thread}\] %{DATA:logger}: %{GREEDYDATA:message}'
 
 output.elasticsearch:
   hosts: ["elasticsearch:9200"]
