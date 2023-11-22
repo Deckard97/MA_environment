@@ -21,14 +21,20 @@ filebeat.modules:
     enabled: true
     var.paths: ["/mnt/db-logs/mysql-slow.log"]
 
-# filebeat.inputs:
-# # Spring Boot Application Logs
-# - type: log
-#   enabled: true
-#   paths:
-#     - /mnt/app-logs/*.log
-#   fields:
-#     log_type: spring_boot
+filebeat.inputs:
+# Spring Boot Application Logs
+- type: log
+  enabled: true
+  paths:
+    - /mnt/app-logs/*.log
+  multiline.pattern: '^\d{4}-\d{2}-\d{2}'
+  multiline.negate: true
+  multiline.match: after
+
+processors:
+  - grok:
+      patterns:
+        - '%{TIMESTAMP_ISO8601:timestamp} %{LOGLEVEL:loglevel} \[%{DATA:process_id}\] --- \[%{DATA:thread}\] %{DATA:logger}: %{GREEDYDATA:message}'
 
 output.elasticsearch:
   hosts: ["elasticsearch:9200"]
