@@ -105,18 +105,15 @@ services:
     volumes:
       - ./additional/telegraf.conf:/etc/telegraf/telegraf.conf:ro
       - /var/run/docker.sock:/var/run/docker.sock
-      - httpd-logs:/mnt/httpd-logs
-      - app-logs:/mnt/app-logs
-      - db-logs:/mnt/db-logs
     networks:
       - testenv-network
-    depends_on:
-      application1:
-        condition: service_healthy
-      # application2:
-      #   condition: service_healthy
-      db:
-        condition: service_healthy
+    # depends_on:
+    #   application1:
+    #     condition: service_healthy
+    #   # application2:
+    #   #   condition: service_healthy
+    #   db:
+    #     condition: service_healthy
     cpus: '0.5'
     mem_limit: 256M
 
@@ -153,6 +150,9 @@ services:
     user: root
     volumes:
       - ./additional/filebeat.yml:/usr/share/filebeat/filebeat.yml
+      - httpd-logs:/mnt/httpd-logs
+      - app-logs:/mnt/app-logs
+      - db-logs:/mnt/db-logs
     networks:
       - testenv-network
     depends_on:
