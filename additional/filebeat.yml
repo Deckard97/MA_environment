@@ -34,6 +34,7 @@ filebeat.inputs:
     - dissect:
         tokenizer: "%{timestamp} %{+timestamp}  %{log.level} %{process.id} --- [%{thread}] %{logger.name} : %{message}"
         target_prefix: ""
+        overwrite_keys: true
     # - date:
     #     field: "timestamp"
     #     target_field: "@timestamp"
