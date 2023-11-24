@@ -40,6 +40,9 @@ filebeat.inputs:
         fields:
           dataset: "springboot.logs"
 
+setup.template.name: "filebeat"
+setup.template.pattern: "filebeat-*"
+
 output.elasticsearch:
   hosts: ["elasticsearch:9200"]
   index: "filebeat-%{[agent.version]}-%{+yyyy.MM.dd}"
