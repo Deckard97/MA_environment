@@ -48,7 +48,7 @@ filebeat.inputs:
   multiline.match: after
   processors:
     - dissect:
-        tokenizer: "%{@timestamp} %{+@timestamp} %{log.level} %{?space} %{?remainder}"
+        tokenizer: "%{@timestamp} %{+@timestamp} %{?space} %{log.level} %{?remainder}"
         field: "message"
         target_prefix: ""
         overwrite_keys: true
