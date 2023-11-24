@@ -57,7 +57,7 @@ filebeat.inputs:
               }
           }
     - dissect:
-        tokenizer: "%{@timestamp} %{+@timestamp} %{log.level} %{process.id} --- [%{thread}] %{logger.name} : %{message}"
+        tokenizer: "%{@timestamp} %{+@timestamp} %{log.level} %{}"
         field: "message"
         target_prefix: ""
     - add_fields:
