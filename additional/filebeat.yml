@@ -23,6 +23,22 @@ filebeat.modules:
 
 filebeat.inputs:
 # Spring Boot Application Logs
+# - type: log
+#   enabled: true
+#   paths:
+#     - /mnt/app-logs/*.log
+#   multiline.pattern: '^\d{4}-\d{2}-\d{2}'
+#   multiline.negate: true
+#   multiline.match: after
+#   processors:
+#     - dissect:
+#         tokenizer: "%{@timestamp} %{+@timestamp} %{?space} %{log.level} %{process.id} --- [%{thread}] %{logger.name} : %{message}"
+#         target_prefix: ""
+#         overwrite_keys: true
+#     - add_fields:
+#         target: "event"
+#         fields:
+#           dataset: "springboot.logs"
 - type: log
   enabled: true
   paths:
@@ -32,7 +48,8 @@ filebeat.inputs:
   multiline.match: after
   processors:
     - dissect:
-        tokenizer: "%{@timestamp} %{+@timestamp} %{?space} %{log.level} %{process.id} --- [%{thread}] %{logger.name} : %{message}"
+        tokenizer: "%{@timestamp} %{+@timestamp} %{log.level} %{?space} %{?remainder}"
+        field: "message"
         target_prefix: ""
         overwrite_keys: true
     - add_fields:
