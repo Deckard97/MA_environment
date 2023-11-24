@@ -52,18 +52,11 @@ filebeat.inputs:
         source: >
           function process(event) {
               var message = event.Get("message");
-              var logLevel = message.substr(24, 5).trim();
-              event.Put("log.level.length", logLevel.length);
+              if (message != null) {
+                  event.Put("message", message.replace(/\s+/g, " "));
+              }
           }
     - dissect:
-        when.equals:
-          log.level.length: 4
-        tokenizer: "%{@timestamp} %{+@timestamp}  %{log.level} %{process.id} --- [%{thread}] %{logger.name} : %{message}"
-        field: "message"
-        target_prefix: ""
-    - dissect:
-        when.equals:
-          log.level.length: 5
         tokenizer: "%{@timestamp} %{+@timestamp} %{log.level} %{process.id} --- [%{thread}] %{logger.name} : %{message}"
         field: "message"
         target_prefix: ""
@@ -71,7 +64,6 @@ filebeat.inputs:
         target: "event"
         fields:
           dataset: "springboot.logs"
-
 
 output.elasticsearch:
   hosts: ["elasticsearch:9200"]
