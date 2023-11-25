@@ -90,8 +90,8 @@ services:
       DOCKER_INFLUXDB_INIT_ORG: 'testenv'
       DOCKER_INFLUXDB_INIT_BUCKET: 'metricdb'
       DOCKER_INFLUXDB_INIT_ADMIN_TOKEN: 3gH3gJHl6d2QhwkRpPslL2g8UHt7H3kNj3KlN2jN2K
-    # volumes:
-    #   - influxdb-data:/var/lib/influxdb2
+    volumes:
+      - influxdb-data:/var/lib/influxdb2
     ports:
       - "8086:8086"
     networks:
@@ -107,13 +107,13 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
     networks:
       - testenv-network
-    # depends_on:
-    #   application1:
-    #     condition: service_healthy
-    #   # application2:
-    #   #   condition: service_healthy
-    #   db:
-    #     condition: service_healthy
+    depends_on:
+      application1:
+        condition: service_healthy
+      # application2:
+      #   condition: service_healthy
+      db:
+        condition: service_healthy
     cpus: '0.5'
     mem_limit: 256M
 
@@ -138,8 +138,8 @@ services:
       - "9200:9200"
     networks:
       - testenv-network
-    # volumes:
-    #   - esdata:/usr/share/elasticsearch/data
+    volumes:
+      - esdata:/usr/share/elasticsearch/data
     cpus: '2'
     mem_limit: 1.5G
 
