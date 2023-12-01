@@ -3,10 +3,7 @@ services:
   db:
     image: mysql
     container_name: db
-    restart: always
     environment:
-      MYSQL_DATABASE: 'dev'
-      MYSQL_PASSWORD: 'root'
       MYSQL_ROOT_PASSWORD: 'root'
     ports:
       - '3306:3306'
@@ -15,6 +12,7 @@ services:
     volumes:
       - db-logs:/mnt/logs
       - ./additional/my.cnf:/etc/mysql/my.cnf
+      - ./additional/prefilled_db.sql:/docker-entrypoint-initdb.d/dump.sql
     healthcheck:
       test: "/usr/bin/mysql --user=root --password=root --execute \"SHOW DATABASES;\""
       interval: 2s
