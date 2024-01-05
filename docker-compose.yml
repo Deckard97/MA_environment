@@ -127,8 +127,10 @@ services:
       - "9200:9200"
     networks:
       - testenv-network
-    # volumes:
+    volumes:
     #   - esdata:/usr/share/elasticsearch/data
+      - ./additional/init-es.sh:/usr/local/bin/init-es.sh
+    command: /usr/local/bin/init-es.sh
     cpus: '2'
     mem_limit: 1.5G
 
