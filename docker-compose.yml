@@ -129,7 +129,6 @@ services:
       - testenv-network
     # volumes:
     #   - esdata:/usr/share/elasticsearch/data
-    command: /usr/local/bin/init-es.sh
     cpus: '2'
     mem_limit: 1.5G
 
