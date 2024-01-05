@@ -3,6 +3,7 @@
 !gradle/wrapper/gradle-wrapper.jar
 additional/articles.csv
 additional/sentence.csv
+*.log
 
 ### STS ###
 .apt_generated
