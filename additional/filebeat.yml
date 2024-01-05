@@ -50,16 +50,6 @@ filebeat.inputs:
         fields:
           dataset: "springboot.logs"
 
-# Enable request duration logging
-- type: log
-  enabled: true
-  paths:
-    - /mnt/httpd-logs/access_log 
-  processors:
-    - grok:
-        field: "message"
-        patterns: ["%{COMBINEDAPACHELOG} %{NUMBER:duration}"]
-
 output.elasticsearch:
   hosts: ["elasticsearch:9200"]
   username: "elastic"

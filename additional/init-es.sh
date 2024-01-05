@@ -16,7 +16,7 @@ curl -X PUT "http://elasticsearch:9200/_ingest/pipeline/apache_custom" -H 'Conte
       "grok": {
         "field": "message",
         "patterns": [
-          "%{IPORHOST:client.ip} %{USER:ident} %{USER:auth} \\[%{HTTPDATE:apache.access.time}\\] \\"%{WORD:apache.access.method} %{DATA:apache.access.url} HTTP/%{NUMBER:apache.access.http_version}\\" %{NUMBER:apache.response.status_code} (?:%{NUMBER:apache.access.body_sent.bytes}|-) \\"%{DATA:apache.access.referrer}\\" \\"%{DATA:apache.access.agent}\\" %{NUMBER:duration}"
+          "%{IPORHOST:client.ip} %{USER:ident} %{USER:auth} \\[%{HTTPDATE:apache.access.time}\\] \\"%{WORD:apache.access.method} %{DATA:apache.access.url} HTTP/%{NUMBER:apache.access.http_version}\\" %{NUMBER:apache.response.status_code} (?:%{NUMBER:apache.access.body_sent.bytes}|-) \\"%{DATA:apache.access.referrer}\\" \\"%{DATA:apache.access.agent}\\" %{NUMBER:apache.access.duration}"
         ]
       }
     }
