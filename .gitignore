@@ -1,8 +1,8 @@
 .gradle
 /build/
 !gradle/wrapper/gradle-wrapper.jar
-additional/articles.csv
-additional/sentence.csv
+additional/JMeter/articles.csv
+additional/JMeter/sentence.csv
 *.log
 
 ### STS ###
