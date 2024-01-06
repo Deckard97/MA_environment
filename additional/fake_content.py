@@ -36,7 +36,7 @@ while True:
     article_json = json.dumps(article)
 
     # Write sentence to sentence.csv
-    with open('sentence.csv', mode='a', newline='') as file:
+    with open('./JMeter/sentence.csv', mode='a', newline='') as file:
         writer = csv.writer(file)
         if sentence_line_count < max_lines:
             writer.writerow([comment])
@@ -48,7 +48,7 @@ while True:
             sentence_line_count = 1
 
     # Write article request body to articles.csv
-    with open('articles.csv', 'a', newline='') as file:
+    with open('./JMeter/articles.csv', 'a', newline='') as file:
         if article_line_count < max_lines:
             file.write(article_json + '\n')
             article_line_count += 1
